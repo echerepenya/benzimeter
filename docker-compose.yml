@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+###> doctrine/doctrine-bundle ###
+  database:
+    container_name: learning_database
+    build:
+      context: ./docker
+      dockerfile: Dockerfile-db
+    command: ['--default-authentication-plugin=mysql_native_password', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: learning
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql
+      #- ./docker/build/db:/docker-entrypoint-initdb.d
+    networks:
+      - symfony
+
+      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/db/data:/var/lib/postgresql/data:rw
+###< doctrine/doctrine-bundle ###
+
+  fpm:
+    container_name: learning_fpm
+    build: # Info to build the Docker image
+      context: ./docker # Specify where the Dockerfile is located (e.g. in the root directory of the project)
+      dockerfile: Dockerfile-php # Specify the name of the Dockerfile
+    #environment: # You can use this section to set environment variables. But you can also use the .env file.
+    #- DATABASE_URL=mysql://root:root@db/docker_sf
+    volumes:
+    - ./:/var/www/project/:cached # Location of the project for php-fpm. Note this should be the same for NGINX.*
+    networks:
+    - symfony # Docker containers (services) that need to connect to each other should be on the same network.
+    depends_on:
+      - database
+
+  nginx:
+    container_name: learning_nginx
+    build:
+      context: ./docker
+      dockerfile: Dockerfile-nginx
+    volumes:
+    - ./:/var/www/project/:cached
+    ports:
+    - 8100:80 # Ports that are exposed, you can connect to port 8080 to port 80 of the container.
+    networks:
+    - symfony
+    depends_on:
+      - database
+      - fpm
+
+  phpmyadmin:
+    container_name: learning_phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+        - "8200:80"
+    environment:
+        PMA_HOST: localhost
+        PMA_PORT: 3306
+    networks:
+      - symfony
+    depends_on:
+      - database
+      - fpm
+      - nginx
+
+volumes:
+###> doctrine/doctrine-bundle ###
+  db-data:
+###< doctrine/doctrine-bundle ###
+networks:
+  symfony:
