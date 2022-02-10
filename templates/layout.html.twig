@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home Page{% endblock %}
+{% block title %}Автомобиль{% endblock %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                 <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-5 d-none d-sm-inline">Панель охраны</span>
+                    <span class="fs-5 d-none d-sm-inline">Учет топлива</span>
                 </a>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
@@ -19,13 +19,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ path('dashboard') }}" class="nav-link align-middle px-0 {% if (app.request.pathInfo == path('dashboard')) %} text-white{% endif %}">
-                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Заявки</span></a>
+                        <a href="{{ path('car') }}" class="nav-link align-middle px-0 {% if (app.request.pathInfo == path('car')) %} text-white{% endif %}">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Машины</span></a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Посетители</span> </a>
+                        <a href="{{ path('petrol_station') }}" class="nav-link align-middle px-0 {% if (app.request.pathInfo == path('petrol_station')) %} text-white{% endif %}">
+                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Заправки</span> </a>
                     </li>
+                    {#
                     <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
                             <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Посты</span></a>
@@ -38,6 +39,7 @@
                             </li>
                         </ul>
                     </li>
+                    #}
                 </ul>
                 <hr>
                 <div class="dropdown pb-4">

@@ -3,7 +3,7 @@ version: '3.8'
 services:
 ###> doctrine/doctrine-bundle ###
   database:
-    container_name: learning_database
+    container_name: database
     build:
       context: ./docker
       dockerfile: Dockerfile-db
@@ -27,7 +27,7 @@ services:
 ###< doctrine/doctrine-bundle ###
 
   fpm:
-    container_name: learning_fpm
+    container_name: fpm
     build: # Info to build the Docker image
       context: ./docker # Specify where the Dockerfile is located (e.g. in the root directory of the project)
       dockerfile: Dockerfile-php # Specify the name of the Dockerfile
@@ -41,7 +41,7 @@ services:
       - database
 
   nginx:
-    container_name: learning_nginx
+    container_name: nginx
     build:
       context: ./docker
       dockerfile: Dockerfile-nginx
@@ -56,12 +56,12 @@ services:
       - fpm
 
   phpmyadmin:
-    container_name: learning_phpmyadmin
+    container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
     ports:
         - "8200:80"
     environment:
-        PMA_HOST: localhost
+        PMA_HOST: database
         PMA_PORT: 3306
     networks:
       - symfony

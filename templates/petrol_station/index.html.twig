@@ -6,10 +6,12 @@
 
     {% if message is defined %} {{ message }} {% endif %}
 
-    {% if tasks is defined %}
+    <a href="{{ path('add_petrol_station') }}" class="btn btn-primary stretched-link">Добавить заправочную станцию</a>
+
+    {% if stations is defined %}
         <ul>
-        {% for task in tasks %}
-            <li>{{ task.task }} - {{ task.dueDate|date('Y-m-d') }}</li>
+        {% for station in stations %}
+            <li>{{ station.name }}</li>
         {% endfor %}
         </ul>
     {% endif %}

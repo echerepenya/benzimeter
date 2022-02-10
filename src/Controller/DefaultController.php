@@ -6,22 +6,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Task;
-use App\Repository\TaskRepository;
-use App\Form\TaskType;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'homepage')]
-    public function index(TaskRepository $taskRepo): Response
+    public function index(): Response
     {
-        $tasks = $taskRepo->findAll();
-
         return $this->render('default/index.html.twig', [
             'title' => 'Страница',
             'message' => 'Главная страница',
-            'tasks' => $tasks
         ]);
     }
 
@@ -50,7 +45,7 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    #[Route('task_success', name: 'task_success')]
+    #[Route('/task_success', name: 'task_success')]
     public function task_success(): Response
     {
         return $this->render('default/index.html.twig', [
@@ -58,5 +53,4 @@ class DefaultController extends AbstractController
             'message' => 'Форма отправлена успешно'            
         ]);
     }
-
 }
