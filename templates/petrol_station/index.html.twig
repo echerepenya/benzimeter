@@ -6,15 +6,7 @@
 
     {% if message is defined %} {{ message }} {% endif %}
 
-    <a href="{{ path('add_petrol_station') }}" class="btn btn-primary stretched-link">Добавить заправочную станцию</a>
-
-    {% if stations is defined %}
-        <ul>
-        {% for station in stations %}
-            <li>{{ station.name }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
+    {% block station_cards %}{% endblock %}<br>
 
     {% if form is defined %} {{ form(form) }} {% endif %}
 

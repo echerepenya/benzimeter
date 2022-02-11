@@ -1,0 +1,21 @@
+{% extends 'petrol_station/index.html.twig' %}
+
+{% block station_cards %}
+
+    {% if stations is defined %}
+    <div class="row row-cols-10">
+        {% for station in stations %}
+            <div class="col">
+                <div class="card" style="height: 10rem">
+                    <img src="{{ asset('uploads/petrol_stations/' ~ station.pictureFilename) }}" class="card-img-top" alt="Logo">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ station.name }}</h6>
+                        <a href="{{ path('change_station', {'id': station.id}) }}" class="card-link small">...</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+{% endblock %}

@@ -10,11 +10,13 @@ class FileUploader
 {
     private $targetDirectory;
     private $slugger;
+    private $imageOptimizer;
 
-    public function __construct($targetDirectory, SluggerInterface $slugger)
+    public function __construct($targetDirectory, SluggerInterface $slugger, ImageOptimizer $imageOptimizer)
     {
         $this->targetDirectory = $targetDirectory;
         $this->slugger = $slugger;
+        $this->imageOptimizer = $imageOptimizer;
     }
 
     public function upload(UploadedFile $file)
@@ -26,8 +28,10 @@ class FileUploader
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
-            // ... разберитесь с исключением, если что-то случится во время загрузки файла
+            'Ошибка сохранения файла  '. $e;
         }
+
+        $this->imageOptimizer->resize($this->getTargetDirectory() .'/'. $fileName);
 
         return $fileName;
     }
