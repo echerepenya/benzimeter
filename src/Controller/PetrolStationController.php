@@ -52,7 +52,7 @@ class PetrolStationController extends AbstractController
             $entityManager->persist($station);
             $entityManager->flush();
 
-            return $this->redirectToRoute('station_added');
+            return $this->redirectToRoute('station_success');
         }
 
         return $this->render('petrol_station/station_cards.html.twig', [
@@ -96,7 +96,7 @@ class PetrolStationController extends AbstractController
             $entityManager->persist($station);
             $entityManager->flush();
 
-            return $this->redirectToRoute('station_added');
+            return $this->redirectToRoute('station_success');
 
         }
 
@@ -106,8 +106,8 @@ class PetrolStationController extends AbstractController
         ]);
     }
 
-    #[Route('/station-added', name: 'station_added')]
-    public function task_success(): Response
+    #[Route('/station-success', name: 'station_success')]
+    public function station_success(): Response
     {
         $message = 'Информация добавлена успешно';
         

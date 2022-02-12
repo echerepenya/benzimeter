@@ -4,16 +4,22 @@
 
 {% block content %}
 
-    {% if message is defined %} {{ message }} {% endif %}
-
-    {% if tasks is defined %}
+    {% if cars is defined %}
         <ul>
-        {% for task in tasks %}
-            <li>{{ task.task }} - {{ task.dueDate|date('Y-m-d') }}</li>
+        {% for car in cars %}
+            <li>{{ car.brand }} {{ car.model }} - {{ car.regNumber }}</li>
         {% endfor %}
         </ul>
     {% endif %}
 
     {% if form is defined %} {{ form(form) }} {% endif %}
+
+    {% if message is defined %} {{ message }} {% endif %}
+
+    {% if add_button is defined %}
+        <p>
+            <a href="{{ path('add_car') }}" class="btn btn-primary">Добавить автомобиль</a>
+        </p>
+    {% endif %}
 
 {% endblock %}
