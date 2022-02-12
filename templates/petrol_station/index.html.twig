@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    {% if message is defined %} {{ message }} {% endif %}
+    {% if return_route is defined %}<a href='{{ path(return_route) }}'> Назад </a><br>{% endif %}
 
     {% block station_cards %}{% endblock %}<br>
 

@@ -101,7 +101,7 @@ class PetrolStationController extends AbstractController
         }
 
         return $this->render('petrol_station/index.html.twig', [
-            'controller_name' => 'PetrolStationController',
+            'return_route' => 'petrol_station',
             'form' => $form->createView()
         ]);
     }
