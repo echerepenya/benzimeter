@@ -2,22 +2,42 @@
 
 {% block title %}Регистрация{% endblock %}
 
+{% block custom_css %}
+    <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
+
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Новый пользователь</h1>
+    <div class="container-fluid text-center">
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.phone) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        <main class="form-register">
+            <h1 class="h3 mb-3 fw-normal">
+                Новый пользователь
+            </h1>
+            
+            {{ form_start(registrationForm) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                {{ form_row(registrationForm.name) }} 
+                {{ form_row(registrationForm.phone) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                        label: 'Password'
+                    })
+                }}
+                {{ form_row(registrationForm.agreeTerms) }}
+
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Зарегистрировать</button>
+            
+            {{ form_end(registrationForm) }}
+
+            <p class="mt-1">
+                <a href="{{ path('login') }}">Уже зарегистрированы?</a>
+            </p>
+        </main>
+    </div>
+
 {% endblock %}
