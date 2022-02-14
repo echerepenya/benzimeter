@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Успешная регистрация{% endblock %}
+
+{% block body %}
+    {% for success in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">{{ success }}</div>
+    {% endfor %}
+
+    <h1>Поздравляем! Теперь вы можете пользоваться сервисом</h1>
+
+    <p><a href='{{ path('homepage') }}'>Перейти на главную</a></p>
+
+{% endblock %}

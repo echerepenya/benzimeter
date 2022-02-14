@@ -25,10 +25,12 @@ class CarController extends AbstractController
     #[Route('/car', name: 'car')]
     public function show(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $cars = $this->carRepo->findAll();
 
         return $this->render('car/index.html.twig', [
-            'title' => 'h4>Список зарегистрированных автомобилей</h4>',
+            'title' => 'Автомобили',
             'cars' => $cars,
             'add_button' => true
         ]);
