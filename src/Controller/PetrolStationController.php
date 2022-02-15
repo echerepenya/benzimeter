@@ -14,7 +14,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Service\ImageOptimizer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+#[IsGranted("ROLE_USER")]
 class PetrolStationController extends AbstractController
 {
     private $petrolStationRepo;
