@@ -21,9 +21,13 @@ class Fuel
     #[ORM\OneToMany(mappedBy: 'fuel', targetEntity: Car::class)]
     private $cars;
 
+    #[ORM\OneToMany(mappedBy: 'fuel', targetEntity: Refuelling::class)]
+    private $refuellings;
+
     public function __construct()
     {
         $this->cars = new ArrayCollection();
+        $this->refuellings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,6 +71,36 @@ class Fuel
             // set the owning side to null (unless already changed)
             if ($car->getFuel() === $this) {
                 $car->setFuel(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Refuelling[]
+     */
+    public function getRefuellings(): Collection
+    {
+        return $this->refuellings;
+    }
+
+    public function addRefuelling(Refuelling $refuelling): self
+    {
+        if (!$this->refuellings->contains($refuelling)) {
+            $this->refuellings[] = $refuelling;
+            $refuelling->setFuel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRefuelling(Refuelling $refuelling): self
+    {
+        if ($this->refuellings->removeElement($refuelling)) {
+            // set the owning side to null (unless already changed)
+            if ($refuelling->getFuel() === $this) {
+                $refuelling->setFuel(null);
             }
         }
 

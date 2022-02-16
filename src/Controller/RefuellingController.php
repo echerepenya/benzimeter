@@ -11,16 +11,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[IsGranted("ROLE_USER")]
-class DefaultController extends AbstractController
+class RefuellingController extends AbstractController
 {
     #[Route('/', name: 'homepage')]
     public function index(): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         
-        return $this->render('default/index.html.twig', [
-            'title' => 'Страница',
-            'message' => 'Главная страница',
+        return $this->render('refuelling/index.html.twig', [
+            'title' => 'Записи',
+            'message' => 'Записи',
         ]);
     }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CarRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CarRepository::class)]
@@ -24,6 +26,14 @@ class Car
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $createdAt;
+
+    #[ORM\OneToMany(mappedBy: 'car', targetEntity: Refuelling::class)]
+    private $refuellings;
+
+    public function __construct()
+    {
+        $this->refuellings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +84,36 @@ class Car
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Refuelling[]
+     */
+    public function getRefuellings(): Collection
+    {
+        return $this->refuellings;
+    }
+
+    public function addRefuelling(Refuelling $refuelling): self
+    {
+        if (!$this->refuellings->contains($refuelling)) {
+            $this->refuellings[] = $refuelling;
+            $refuelling->setCar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRefuelling(Refuelling $refuelling): self
+    {
+        if ($this->refuellings->removeElement($refuelling)) {
+            // set the owning side to null (unless already changed)
+            if ($refuelling->getCar() === $this) {
+                $refuelling->setCar(null);
+            }
+        }
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -45,6 +47,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Refuelling::class)]
+    private $refuellings;
+
+    public function __construct()
+    {
+        $this->refuellings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -184,6 +194,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Refuelling[]
+     */
+    public function getRefuellings(): Collection
+    {
+        return $this->refuellings;
+    }
+
+    public function addRefuelling(Refuelling $refuelling): self
+    {
+        if (!$this->refuellings->contains($refuelling)) {
+            $this->refuellings[] = $refuelling;
+            $refuelling->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRefuelling(Refuelling $refuelling): self
+    {
+        if ($this->refuellings->removeElement($refuelling)) {
+            // set the owning side to null (unless already changed)
+            if ($refuelling->getUser() === $this) {
+                $refuelling->setUser(null);
+            }
+        }
 
         return $this;
     }

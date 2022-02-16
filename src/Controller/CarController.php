@@ -30,7 +30,6 @@ class CarController extends AbstractController
         $cars = $this->carRepo->findAll();
 
         return $this->render('car/index.html.twig', [
-            'title' => 'Автомобили',
             'cars' => $cars,
             'add_button' => true
         ]);

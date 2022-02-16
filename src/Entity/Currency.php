@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PetrolStationRepository;
+use App\Repository\CurrencyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PetrolStationRepository::class)]
-class PetrolStation
+#[ORM\Entity(repositoryClass: CurrencyRepository::class)]
+class Currency
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,10 +18,10 @@ class PetrolStation
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $pictureFilename;
+    #[ORM\Column(type: 'string', length: 6)]
+    private $isoCode;
 
-    #[ORM\OneToMany(mappedBy: 'petrolStation', targetEntity: Refuelling::class)]
+    #[ORM\OneToMany(mappedBy: 'currency', targetEntity: Refuelling::class)]
     private $refuellings;
 
     public function __construct()
@@ -46,14 +46,14 @@ class PetrolStation
         return $this;
     }
 
-    public function getPictureFilename(): ?string
+    public function getIsoCode(): ?string
     {
-        return $this->pictureFilename;
+        return $this->isoCode;
     }
 
-    public function setPictureFilename(?string $pictureFilename): self
+    public function setIsoCode(string $isoCode): self
     {
-        $this->pictureFilename = $pictureFilename;
+        $this->isoCode = $isoCode;
 
         return $this;
     }
@@ -70,7 +70,7 @@ class PetrolStation
     {
         if (!$this->refuellings->contains($refuelling)) {
             $this->refuellings[] = $refuelling;
-            $refuelling->setPetrolStation($this);
+            $refuelling->setCurrency($this);
         }
 
         return $this;
@@ -80,8 +80,8 @@ class PetrolStation
     {
         if ($this->refuellings->removeElement($refuelling)) {
             // set the owning side to null (unless already changed)
-            if ($refuelling->getPetrolStation() === $this) {
-                $refuelling->setPetrolStation(null);
+            if ($refuelling->getCurrency() === $this) {
+                $refuelling->setCurrency(null);
             }
         }
 

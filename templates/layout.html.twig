@@ -1,66 +1,90 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Автомобиль{% endblock %}
-
 {% block body %}
+    
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="{{ path('homepage') }}">Бензометр</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <a class="nav-link px-3" href="{{ path('app_logout') }}">Выход</a>
+    </div>
+  </div>
+</header>
 
 <div class="container-fluid">
-    <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-5 d-none d-sm-inline">Учет топлива</span>
-                </a>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
-                        <a href="{{ path('homepage') }}" class="nav-link align-middle px-0 {% if (app.request.pathInfo == path('homepage')) %} text-white{% endif %}">
-                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Главная</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ path('car') }}" class="nav-link align-middle px-0 {% if (app.request.pathInfo == path('car')) %} text-white{% endif %}">
-                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Машины</span></a>
-                    </li>
-                    <li>
-                        <a href="{{ path('petrol_station') }}" class="nav-link align-middle px-0 {% if (app.request.pathInfo == path('petrol_station')) %} text-white{% endif %}">
-                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Заправки</span> </a>
-                    </li>
-                    {#
-                    <li>
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Посты</span></a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Вьезд</span> 1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Вьезд</span> 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    #}
-                </ul>
-                <hr>
-                <div class="dropdown pb-4">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {# <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle"> #}
-                        <span class="d-none d-sm-inline mx-1">{# if is_granted('ROLE_USER') #}</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">Настройки</a></li>
-                        <li><a class="dropdown-item" href="#">Профиль</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="{{ path('app_logout') }}">Выход</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col py-3">
-            {% block content %}{% endblock %}
-        </div>
-    </div>
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">
+              <span data-feather="home"></span>
+              Главная
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file"></span>
+              Автомобили
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="shopping-cart"></span>
+              Заправочные станции
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="users"></span>
+              Пользователи
+            </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Детальные отчеты</span>
+          <a class="link-secondary" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+              За этот месяц
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+              За этот год
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+              Расход топлива
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="file-text"></span>
+              Стоимость топлива
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        {% block content %}{% endblock %}
+    </main>
+  </div>
 </div>
 
 {% endblock %}
