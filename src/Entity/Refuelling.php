@@ -6,6 +6,7 @@ use App\Repository\RefuellingRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RefuellingRepository::class)]
+#[ORM\HasLifecycleCallbacks()]
 class Refuelling
 {
     #[ORM\Id]
@@ -145,6 +146,13 @@ class Refuelling
 
         return $this;
     }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
 
     public function getCurrency(): ?Currency
     {

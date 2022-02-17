@@ -8,12 +8,9 @@
 
 {% block content %}
 
-    {% for success in app.flashes('success') %}
-        <div class="alert alert-success" role="alert">{{ success }}</div>
-    {% endfor %}
-
-    <h1>Поздравляем! Теперь вы можете пользоваться сервисом</h1>
-
-    <p><a href='{{ path('homepage') }}'>Перейти на главную</a></p>
+    <div class="pt-5 text-center">
+        <h2>Данные о заправке сохранены</h2>
+        <p><a href='{{ path('homepage') }}'>Перейти на главную</a></p>
+    </div>
 
 {% endblock %}

@@ -23,8 +23,7 @@
 #}
 </div>
 
-{% if form is defined %} {{ form(form) }} {% endif %}
-
+{# если есть записи, показываем таблицу #} 
 {% if records %}
 
 <h5>История заправок</h5>
@@ -39,7 +38,7 @@
         <th scope="col">Автомобиль</th>
         <th scope="col">Топливо</th>
         <th scope="col">Объем, л</th>
-        <th scope="col">Стоимость</th>
+        <th scope="col">Сумма чека</th>
         <th scope="col">Цена за литр</th>
         <th scope="col">Станция</th>
       </tr>
@@ -49,12 +48,12 @@
       
       <tr>
         <td>{{ record.createdAt|date('Y-m-d') }}</td>
-        <td>{{ record.createdAt|date('H:m') }}</td>
+        <td>{{ record.createdAt|date('H:i') }}</td>
         <td>{{ record.user.name }}</td>
-        <td>{{ record.car.brand }}</td>
+        <td>{{ [record.car.brand, ' ', record.car.model, ' - ',record.car.regNumber]|join }}</td>
         <td>{{ record.fuel.type }}</td>
-        <td>{{ record.litres }}</td>
-        <td>{{ [record.cost, ' ', record.currency.isoCode]|join }}</td>
+        <td>{{ record.litres|number_format(0) }}</td>
+        <td>{{ [record.cost|number_format(0), ' ', record.currency.isoCode]|join }}</td>
         <td>{{ [(record.cost / record.litres)|number_format(1), ' ', record.currency.isoCode]|join }}</td>
         <td>{{ record.petrolStation.name }}</td>
       </tr>
@@ -65,9 +64,14 @@
   </table>
 </div>
 
+{# если нет записей, но есть форма, показываем форму #} 
+{% elseif form is defined %}
+  {{ form(form) }}
+
+{# вариант в случае отсутствия записей и формы #} 
 {% else %}
 
-<h5>Записей о заправках автомобилей не найдено</h5>
+  <h5>Записей о заправках автомобилей не найдено</h5>
 
 {% endif %}
 
