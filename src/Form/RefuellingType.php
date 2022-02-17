@@ -27,7 +27,12 @@ class RefuellingType extends AbstractType
             ->add('car', EntityType::class, [
                 'label' => 'Автомобиль',
                 'class' => Car::class,
-                'choice_label' => 'reg_number'
+                'placeholder' => 'Выберите автомобиль',
+                //'required' => false,
+                //'choice_label' => 'reg_number',
+                'choice_label' => function ($car) {
+                    return $car->getBrand() .' '. $car->getModel() .' - '. $car->getRegNumber();
+                }
             ])
             ->add('fuel', EntityType::class, [
                 'label' => 'Вид топлива',
