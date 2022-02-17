@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h4><a href="#"> Новая запись...</a></h4>
+  <h4><a href="{{ path('add_refuelling') }}"> Добавить запись...</a></h4>
 
 {#
   <div class="btn-toolbar mb-2 mb-md-0">
@@ -23,39 +23,54 @@
 #}
 </div>
 
+{% if form is defined %} {{ form(form) }} {% endif %}
+
+{% if records %}
+
 <h5>История заправок</h5>
+
 <div class="table-responsive">
   <table class="table table-striped table-sm">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Header</th>
-        <th scope="col">Header</th>
-        <th scope="col">Header</th>
-        <th scope="col">Header</th>
+        <th scope="col">Дата</th>
+        <th scope="col">Время</th>
+        <th scope="col">Пользователь</th>
+        <th scope="col">Автомобиль</th>
+        <th scope="col">Топливо</th>
+        <th scope="col">Объем, л</th>
+        <th scope="col">Стоимость</th>
+        <th scope="col">Цена за литр</th>
+        <th scope="col">Станция</th>
       </tr>
     </thead>
     <tbody>
+      {% for record in records %}
+      
       <tr>
-        <td>1,001</td>
-        <td>random</td>
-        <td>data</td>
-        <td>placeholder</td>
-        <td>text</td>
+        <td>{{ record.createdAt|date('Y-m-d') }}</td>
+        <td>{{ record.createdAt|date('H:m') }}</td>
+        <td>{{ record.user.name }}</td>
+        <td>{{ record.car.brand }}</td>
+        <td>{{ record.fuel.type }}</td>
+        <td>{{ record.litres }}</td>
+        <td>{{ [record.cost, ' ', record.currency.isoCode]|join }}</td>
+        <td>{{ [(record.cost / record.litres)|number_format(1), ' ', record.currency.isoCode]|join }}</td>
+        <td>{{ record.petrolStation.name }}</td>
       </tr>
-      <tr>
-        <td>1,002</td>
-        <td>placeholder</td>
-        <td>irrelevant</td>
-        <td>visual</td>
-        <td>layout</td>
-      </tr>
+
+      {% endfor %}
+
     </tbody>
   </table>
 </div>
 
-<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+{% else %}
 
-{% if form is defined %} {{ form(form) }} {% endif %}
+<h5>Записей о заправках автомобилей не найдено</h5>
+
+{% endif %}
+
+{# <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> #}
 
 {% endblock %}

@@ -12,9 +12,10 @@
 
         <main class="form-signin">
             <img class="mb-4" src=" {{ asset('images/fuelling_station.png') }}" alt="" width="40%" height="40%">
-            <h1 class="h3 mb-3 fw-normal">
-                Авторизация
+            <h1 class="mb-0 fw-normal brand-name">
+                BENZINOMETER
             </h1>
+            <p class="mb-5">Удобный учет ваших расходов на топливо</p>
             
             <form action="{{ path('login') }}" method="post">
                 <div class="form-floating">
@@ -45,7 +46,7 @@
                 <p class="mt-1">
                     <a href="{{ path('app_register') }}">Нет эккаунта?</a>
                 </p>
-                <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+                <p class="mt-3 mb-2 text-muted">&copy; 2022</p>
             </form>
         </main>
 

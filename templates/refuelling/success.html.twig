@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block custom_css %}
+    <link href="{{ asset('css/refuelling.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    {% for success in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">{{ success }}</div>
+    {% endfor %}
+
+    <h1>Поздравляем! Теперь вы можете пользоваться сервисом</h1>
+
+    <p><a href='{{ path('homepage') }}'>Перейти на главную</a></p>
+
+{% endblock %}

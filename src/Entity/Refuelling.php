@@ -38,7 +38,7 @@ class Refuelling
     #[ORM\Column(type: 'datetime_immutable')]
     private $createdAt;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $updatedAt;
 
     #[ORM\ManyToOne(targetEntity: Currency::class, inversedBy: 'refuellings')]
