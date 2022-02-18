@@ -7,3 +7,7 @@ h4 > a:hover {
     color: blue;
     text-decoration: underline;
 }
+
+.btn {
+    width: 300px;
+}

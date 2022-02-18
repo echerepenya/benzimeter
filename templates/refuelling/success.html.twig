@@ -1,6 +1,7 @@
 {% extends 'layout.html.twig' %}
 
-{% block custom_css %}
+{% block stylesheets %}
+    {{ parent() }}
     <link href="{{ asset('css/refuelling.css') }}" rel="stylesheet">
 {% endblock %}
 

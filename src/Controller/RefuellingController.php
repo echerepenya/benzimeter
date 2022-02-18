@@ -18,7 +18,6 @@ class RefuellingController extends AbstractController
 {
     private $refuellingRepo;
     private $doctrine;
-    private $records;
 
     public function __construct(RefuellingRepository $refuellingRepo, ManagerRegistry $doctrine)
     {
@@ -30,11 +29,12 @@ class RefuellingController extends AbstractController
     #[Route('/', name: 'homepage')]
     public function index(): Response
     {
-        $this->records = $this->refuellingRepo->findAll();
+        $records = $this->refuellingRepo->findAll();
 
         return $this->render('refuelling/index.html.twig', [
             'title' => 'Записи',
-            'records' => $this->records
+            'records' => $records,
+            'add_record' => true,
         ]);
     }
 
@@ -60,10 +60,10 @@ class RefuellingController extends AbstractController
             return $this->redirectToRoute('refuelling_success');
         }
 
-        return $this->render('refuelling/index.html.twig', [
-            'message' => null,
-            'form' => $form->createView(),
-            'records' => $this->records,
+        return $this->renderForm('refuelling/index.html.twig', [
+            'form' => $form,
+            'records' => [],
+            'add_record' => false
         ]);
     }
 

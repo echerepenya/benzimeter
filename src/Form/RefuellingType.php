@@ -9,7 +9,7 @@ use App\Entity\PetrolStation;
 use App\Entity\Currency;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -41,6 +41,7 @@ class RefuellingType extends AbstractType
             ])
             ->add('petrolStation', EntityType::class, [
                 'label' => 'Заправка',
+                'placeholder' => 'Выберите заправку',
                 'class' => PetrolStation::class,
                 'choice_label' => 'name'
             ])
@@ -55,9 +56,16 @@ class RefuellingType extends AbstractType
                 'class' => Currency::class,
                 'choice_label' => 'name'
             ])
-
-            ->add('createdAt', null, ['label' => 'Время заправки'])
-            ->add('Save', SubmitType::class, ['label' => 'Отправить'])
+            ->add('createdAt', DateTimeType::class, [
+                'label' => 'Время заправки',
+                'with_seconds' => false,
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => ['class' => 'js-datepicker']
+            ])
+            ->add('Save', SubmitType::class, [
+                'label' => 'Отправить'
+            ])
         ;
     }
 
