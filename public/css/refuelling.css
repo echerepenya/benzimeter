@@ -11,3 +11,8 @@ h4 > a:hover {
 .btn {
     width: 300px;
 }
+
+td {
+    height: 40px;
+    vertical-align: middle;
+}

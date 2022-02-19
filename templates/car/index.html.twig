@@ -5,11 +5,22 @@
 {% block content %}
 
     {% if cars is defined %}
-        <ul>
-        {% for car in cars %}
-            <li>{{ car.brand }} {{ car.model }} - {{ car.regNumber }}</li>
-        {% endfor %}
-        </ul>
+        <div class="row">
+            
+                {% for car in cars %}
+                    <div class="col-sm-4">
+                        <div class="card m-3" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ car.brand }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ car.model}}</h6>
+                                <p class="card-text">{{ car.regNumber }}</p>
+                                <a href="#" class="card-link">Редактировать</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            
+        </div>
     {% endif %}
 
     {% if form is defined %} {{ form(form) }} {% endif %}
