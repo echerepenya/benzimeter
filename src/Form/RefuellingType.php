@@ -56,11 +56,12 @@ class RefuellingType extends AbstractType
                 'class' => Currency::class,
                 'choice_label' => 'name'
             ])
-            ->add('createdAt', DateTimeType::class, [
+            ->add('createdAt', null, [
                 'label' => 'Время заправки',
                 'with_seconds' => false,
+                //'format' => 'yyyy-MM-dd HH:mm',
                 'widget' => 'single_text',
-                'html5' => false,
+                'html5' => true,
                 'attr' => ['class' => 'js-datepicker']
             ])
             ->add('Save', SubmitType::class, [

@@ -2,21 +2,11 @@
 
 {% block stylesheets %}
   {{ parent() }}
-
   <link href="{{ asset('css/refuelling.css') }}" rel="stylesheet">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
 {% endblock %}
 
 {% block javascripts %}
   {{ parent() }}
-
-  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
-
-  <script>
-    jQuery(document).ready(function() {
-      $('.js-datepicker').datepicker();
-    });
-  </script>
 {% endblock %}
 
 {% block content %}
@@ -93,16 +83,19 @@
   
   {{ form_start(form) }}
 
-  <div class="row">
-    <div class="col-md-6">
+  <div class="row border-bottom mt-4 mb-4 pb-3">
+    <div class="col-md-6 border-right">
       {{ form_row(form.car) }}
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3">
       {{ form_row(form.petrolStation) }}
+    </div>
+    <div class='col-md-3'>
+      {{ form_row(form.createdAt) }}
     </div>
   </div>
 
-  <div class="row">
+  <div class="row border-bottom mb-4 pb-3">
     <div class="col-md-3">
     {{ form_row(form.fuel) }}
     </div>
@@ -116,13 +109,8 @@
     {{ form_row(form.currency) }}
     </div>
   </div>
-
-  <div class="row">
-    {{ form_label(form.createdAt) }}
-    {{ form_widget(form.createdAt) }}
-  </div>
-
-  <div class="d-flex justify-content-center pt-5">
+  
+  <div class="d-flex justify-content-center pt-3">
     {{ form_row(form.Save) }}
   </div>
 </div>
