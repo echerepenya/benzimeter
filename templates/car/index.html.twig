@@ -2,7 +2,24 @@
 
 {% block title %} Автомобиль {% endblock %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="{{ asset('css/refuelling.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+{% endblock %}
+
 {% block content %}
+
+{% if add_button is defined %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h4>
+    <a href="{{ path('add_car') }}"> Добавить автомобиль...</a>
+  </h4>
+</div>
+{% endif %}
 
     {% if cars is defined %}
         <div class="row">
@@ -26,11 +43,5 @@
     {% if form is defined %} {{ form(form) }} {% endif %}
 
     {% if message is defined %} {{ message }} {% endif %}
-
-    {% if add_button is defined %}
-        <p>
-            <a href="{{ path('add_car') }}" class="btn btn-primary">Добавить автомобиль</a>
-        </p>
-    {% endif %}
 
 {% endblock %}
