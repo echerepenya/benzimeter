@@ -2,11 +2,53 @@
 
 {% block title %} Станции {% endblock %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="{{ asset('css/petrol_station.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+{% endblock %}
+
 {% block content %}
 
-    {% if return_route is defined %}<a href='{{ path(return_route) }}'> Назад </a><br>{% endif %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-middle pt-3 mb-3 border-bottom">
+        {% if add_button is defined %}
+            <h4> <a href="{{ path('add_station') }}"> Добавить заправочную станцию...</a> </h4>
+        {% endif %}
+        {% if back is defined %}
+            <p> <a href="{{ path('petrol_station') }}"> назад </a></p>
+        {% endif %}
+    </div>
 
-    {% block station_cards %}{% endblock %}<br>
+    <div class='row'>
+        {% if message is defined %} 
+            <h5> {{ message }} </h5>
+        {% endif %}
+
+    </div>
+
+    {% if stations is defined %}
+    <div class="row g-4">
+        {% for station in stations %}
+            <div class="col-sm-3">
+
+                <div class="card text-dark bg-light m-2">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <img src="{{ asset('uploads/petrol_stations/' ~ station.pictureFilename) }}" class="card-img-top station-logo" alt="Logo"> {{ station.name }}
+                        </h5>
+                        <div class="card-link small">
+                            <a href="{{ path('change_station', {'id': station.id}) }}"> Редактировать </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 
     {% if form is defined %} {{ form(form) }} {% endif %}
 

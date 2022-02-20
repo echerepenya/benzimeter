@@ -4,7 +4,7 @@
 
 {% block stylesheets %}
   {{ parent() }}
-  <link href="{{ asset('css/refuelling.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/car.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
@@ -13,25 +13,27 @@
 
 {% block content %}
 
-{% if add_button is defined %}
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h4>
-    <a href="{{ path('add_car') }}"> Добавить автомобиль...</a>
-  </h4>
-</div>
-{% endif %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3 border-bottom">
+        {% if add_button is defined %}
+            <h4> <a href="{{ path('add_car') }}"> Добавить автомобиль...</a> </h4>
+        {% endif %}
+
+        {% if back is defined %}
+            <p> <a href="{{ path('car') }}"> назад </a></p>
+        {% endif %}
+    </div>
 
     {% if cars is defined %}
         <div class="row">
             
                 {% for car in cars %}
                     <div class="col-sm-4">
-                        <div class="card m-3" style="width: 18rem;">
+                        <div class="card text-dark bg-light m-3" style="width: 18rem;">
                             <div class="card-body">
                                 <h5 class="card-title">{{ car.brand }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ car.model}}</h6>
                                 <p class="card-text">{{ car.regNumber }}</p>
-                                <a href="#" class="card-link">Редактировать</a>
+                                <a href="{{ path('edit_car', {'id': car.id}) }}" class="card-link">Редактировать</a>
                             </div>
                         </div>
                     </div>

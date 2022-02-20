@@ -27,7 +27,7 @@ class RefuellingController extends AbstractController
     }
     
     #[Route('/', name: 'homepage')]
-    public function index(): Response
+    public function showRecords(): Response
     {
         $records = $this->refuellingRepo->findAll();
 
@@ -63,7 +63,8 @@ class RefuellingController extends AbstractController
         return $this->renderForm('refuelling/index.html.twig', [
             'form' => $form,
             'records' => [],
-            'add_record' => false
+            'add_record' => false,
+            'back' => true,
         ]);
     }
 

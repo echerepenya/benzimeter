@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}Главная{% endblock %}
+
 {% block stylesheets %}
   {{ parent() }}
   <link href="{{ asset('css/refuelling.css') }}" rel="stylesheet">
@@ -11,11 +13,14 @@
 
 {% block content %}
 
-{% if add_record %}
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h4>
-    <a href="{{ path('add_refuelling') }}"> Добавить запись...</a>
-  </h4>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-middle pt-3 mb-3 border-bottom">
+  {% if add_record %}
+  <h4> <a href="{{ path('add_refuelling') }}"> Добавить запись...</a> </h4>
+  {% endif %}
+  
+  {% if back is defined %}
+    <p> <a href="{{ path('homepage') }}"> назад </a></p>
+  {% endif %}
 
   {#
     <div class="btn-toolbar mb-2 mb-md-0">
@@ -30,7 +35,6 @@
     </div>
   #}
 </div>
-{% endif %}
 
 {# если есть записи, показываем таблицу #} 
 {% if records %}

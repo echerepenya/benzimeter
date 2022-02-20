@@ -12,11 +12,6 @@ h4 > a:hover {
     width: 300px;
 }
 
-td {
-    height: 40px;
-    vertical-align: middle;
-}
-
 a {
     text-decoration: none;
     color: gray;
@@ -24,4 +19,12 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+.card {
+    width: 12rem;
+}
+
+.station-logo {
+    max-width: 30px;
 }

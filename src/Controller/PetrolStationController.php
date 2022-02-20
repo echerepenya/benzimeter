@@ -31,10 +31,19 @@ class PetrolStationController extends AbstractController
     }
     
     #[Route('/petrol/station', name: 'petrol_station')]
-    public function index(Request $request): Response
+    public function show(): Response
     {
-        $stationList = $this->petrolStationRepo->findAll();
+        $stations = $this->petrolStationRepo->findAll();
 
+        return $this->render('petrol_station/index.html.twig', [
+            'add_button' => true,
+            'stations' => $stations,
+        ]);
+    }
+
+    #[Route('/petrol/station/add', name: 'add_station')]
+    public function addNew(Request $request): Response
+    {
         $station = new PetrolStation();
         $form = $this->createForm(PetrolStationType::class, $station);
         $form->handleRequest($request);
@@ -57,21 +66,20 @@ class PetrolStationController extends AbstractController
             return $this->redirectToRoute('station_success');
         }
 
-        return $this->render('petrol_station/station_cards.html.twig', [
-            'message' => null,
-            'stations' => $stationList,
-            'form' => $form->createView()
+        return $this->render('petrol_station/index.html.twig', [
+            'form' => $form->createView(),
+            'back' => true,
         ]);
     }
-
-    #[Route('/petrol/station/{id}', name: 'change_station')]
+    
+    #[Route('/petrol/station/edit/{id}', name: 'change_station')]
     public function changeStation(Request $request, ?int $id = null): Response
     {
         $station = $this->petrolStationRepo->find($id);
 
         if (!$station) {
             throw $this->createNotFoundException(
-                'No product found for id '. $id
+                'No station found for id '. $id
             );
         }
 
@@ -103,7 +111,7 @@ class PetrolStationController extends AbstractController
         }
 
         return $this->render('petrol_station/index.html.twig', [
-            'return_route' => 'petrol_station',
+            'back' => true,
             'form' => $form->createView()
         ]);
     }
@@ -111,11 +119,12 @@ class PetrolStationController extends AbstractController
     #[Route('/station-success', name: 'station_success')]
     public function station_success(): Response
     {
-        $message = 'Информация добавлена успешно';
+        $message = 'Информация сохранена успешно';
         
         return $this->render('petrol_station/index.html.twig', [
             'title' => 'Успех',
-            'message' => $message          
+            'message' => $message,
+            'back' => true,
         ]);
     }
 }

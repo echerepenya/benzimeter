@@ -27,7 +27,7 @@ class CarType extends AbstractType
             ->add('reg_number', null, [
                 'label' => 'Введите номер автомобиля'
             ])
-            ->add('createdAt', DateType::class)
+            //->add('createdAt', DateType::class)
             ->add('Save', SubmitType::class)
         ;
     }
