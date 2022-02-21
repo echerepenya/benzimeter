@@ -37,7 +37,7 @@
 </div>
 
 {# если есть записи, показываем таблицу #} 
-{% if records %}
+{% if records|length > 0 %}
 
 <h6 class='mb-2'>Всего {{ records|length }} записей о заправках автомобилей</h6>
 
@@ -76,6 +76,13 @@
     </tbody>
   </table>
 </div>
+
+{% if previous >= 0 %}
+  <a href="{{ path('homepage', {offset: previous}) }}"> Предыдущие </a>
+{% endif %}
+{% if next < records|length %}
+  <a href="{{ path('homepage', {offset: next}) }}"> Следующие </a>
+{% endif %}
 
 {# если нет записей, но есть форма, показываем форму #} 
 {% elseif form %}

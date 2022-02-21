@@ -15,7 +15,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class RefuellingRepository extends ServiceEntityRepository
 {
-    public const PAGINATOR_PER_PAGE = 3;
+    public const PAGINATOR_PER_PAGE = 15;
     
     public function __construct(ManagerRegistry $registry)
     {
