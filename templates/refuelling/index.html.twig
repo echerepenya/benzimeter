@@ -39,7 +39,7 @@
 {# если есть записи, показываем таблицу #} 
 {% if records %}
 
-<h5>История заправок</h5>
+<h6 class='mb-2'>Всего {{ records|length }} записей о заправках автомобилей</h6>
 
 <div class="table-responsive">
   <table class="table table-striped table-sm">
@@ -57,7 +57,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for record in records %}
+      {% for record in records|sort %}
       
       <tr>
         <td>{{ record.createdAt|date('Y-m-d') }}</td>

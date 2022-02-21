@@ -41,7 +41,7 @@ class RefuellingType extends AbstractType
             ])
             ->add('petrolStation', EntityType::class, [
                 'label' => 'Заправка',
-                'placeholder' => 'Выберите заправку',
+                'placeholder' => 'Выберите станцию',
                 'class' => PetrolStation::class,
                 'choice_label' => 'name'
             ])

@@ -23,17 +23,20 @@ class RefuellingController extends AbstractController
     {
         $this->refuellingRepo = $refuellingRepo;
         $this->doctrine = $doctrine;
-        $this->records = [];
     }
     
     #[Route('/', name: 'homepage')]
-    public function showRecords(): Response
+    public function showRecords(Request $request): Response
     {
-        $records = $this->refuellingRepo->findAll();
+        // $records = $this->refuellingRepo->findAll();
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $this->refuellingRepo->getRefuellingPaginator($offset);
 
         return $this->render('refuelling/index.html.twig', [
             'title' => 'Записи',
-            'records' => $records,
+            'records' => $paginator,
+            'previous' => $offset - RefuellingRepository::PAGINATOR_PER_PAGE,
+            'next' => min(count($paginator), $offset + RefuellingRepository::PAGINATOR_PER_PAGE),
             'add_record' => true,
         ]);
     }

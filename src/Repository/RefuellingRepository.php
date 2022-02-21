@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Refuelling;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @method Refuelling|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +15,22 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class RefuellingRepository extends ServiceEntityRepository
 {
+    public const PAGINATOR_PER_PAGE = 3;
+    
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Refuelling::class);
+    }
+
+    public function getRefuellingPaginator(int $offset)
+    {
+        $query = $this->createQueryBuilder('r')
+            ->orderBy('r.createdAt', 'DESC')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
+            ->getQuery();
+
+        return new Paginator($query);
     }
 
     // /**
