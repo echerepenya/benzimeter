@@ -80,15 +80,14 @@ class RegistrationController extends AbstractController
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $exception->getReason());
+            $this->addFlash('error', $exception->getReason());
 
             return $this->redirectToRoute('app_register');
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Ваш адрес электронной почты успешно подтвержден');
 
-        return $this->redirectToRoute('registation_success');
+        return $this->redirectToRoute('login');
     }
 
     #[Route('/registration/form/sent', name: 'form_success')]
@@ -100,12 +99,4 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/registration/success', name: 'registation_success')]
-    public function regSuccess(): Response
-    {
-        return $this->render('authentification/success.html.twig', [
-            'title' => 'Успешная регистрация',
-            'message' => 'Вы зарегистрированы. Добро пожаловать!'
-        ]);
-    }
 }
