@@ -28,7 +28,6 @@ class RefuellingController extends AbstractController
     #[Route('/', name: 'homepage')]
     public function showRecords(Request $request): Response
     {
-        // $records = $this->refuellingRepo->findAll();
         $offset = max(0, $request->query->getInt('offset', 0));
         $paginator = $this->refuellingRepo->getRefuellingPaginator($offset);
 
@@ -49,6 +48,45 @@ class RefuellingController extends AbstractController
         $record->setUser($this->getUser());
         $record->setCreatedAt(new \DateTimeImmutable('now'));
         
+        $form = $this->createForm(RefuellingType::class, $record);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $record = $form->getData();
+
+            $entityManager = $this->doctrine->getManager();
+            $entityManager->persist($record);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('refuelling_success');
+        }
+
+        return $this->renderForm('refuelling/index.html.twig', [
+            'form' => $form,
+            'records' => [],
+            'add_record' => false,
+            'back' => true,
+        ]);
+    }
+
+    #[Route('refuelling/edit/{id}', name: 'edit_refuelling')]
+    public function editRefuelling(Request $request, ?int $id = null)
+    {
+        $record = $this->refuellingRepo->find($id);
+
+        if(!$record)
+        {
+            throw $this->createNotFoundException(
+                'No record found for id '. $id
+            );
+        }
+
+        if($record->getUser() !== $this->getUser())
+        {
+            throw $this->createAccessDeniedException();
+        }
+
         $form = $this->createForm(RefuellingType::class, $record);
         $form->handleRequest($request);
 

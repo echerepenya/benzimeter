@@ -43,9 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $updatedAt;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: "boolean")]
     private $isVerified = false;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Refuelling::class)]

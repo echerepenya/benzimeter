@@ -54,6 +54,7 @@
         <th scope="col">Сумма чека</th>
         <th scope="col">Цена за литр</th>
         <th scope="col">Станция</th>
+        <th scope="col">IfUser</th>
       </tr>
     </thead>
     <tbody>
@@ -69,6 +70,7 @@
         <td>{{ [record.cost|number_format(0), ' ', record.currency.isoCode]|join }}</td>
         <td>{{ [(record.cost / record.litres)|number_format(1), ' ', record.currency.isoCode]|join }}</td>
         <td>{{ record.petrolStation.name }}</td>
+        <td>{{ app.user == record.user }}</td>
       </tr>
 
       {% endfor %}

@@ -2,8 +2,13 @@
 
 {% block title %}Регистрация{% endblock %}
 
-{% block custom_css %}
-    <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
 {% endblock %}
 
 {% block body %}
