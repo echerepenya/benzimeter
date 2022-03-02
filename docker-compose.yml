@@ -9,7 +9,7 @@ services:
     command: ['--default-authentication-plugin=mysql_native_password', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: learning
+      MYSQL_DATABASE: benzimeter
       MYSQL_USER: symfony
       MYSQL_PASSWORD: symfony
     restart: always
@@ -33,9 +33,9 @@ services:
     #environment: # You can use this section to set environment variables. But you can also use the .env file.
     #- DATABASE_URL=mysql://root:root@db/docker_sf
     volumes:
-    - ./:/var/www/project/:cached # Location of the project for php-fpm. Note this should be the same for NGINX.*
+      - ./:/var/www/project/:cached # Location of the project for php-fpm. Note this should be the same for NGINX.*
     networks:
-    - symfony # Docker containers (services) that need to connect to each other should be on the same network.
+      - symfony # Docker containers (services) that need to connect to each other should be on the same network.
     depends_on:
       - database
 
@@ -45,11 +45,11 @@ services:
       context: ./docker
       dockerfile: Dockerfile-nginx
     volumes:
-    - ./:/var/www/project/:cached
+      - ./:/var/www/project/:cached
     ports:
-    - 8100:80 # Ports that are exposed, you can connect to port 8080 to port 80 of the container.
+      - 8100:80 # Ports that are exposed, you can connect to port 8080 to port 80 of the container.
     networks:
-    - symfony
+      - symfony
     depends_on:
       - database
       - fpm
@@ -58,10 +58,10 @@ services:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
     ports:
-        - "8200:80"
+      - 8200:80
     environment:
-        PMA_HOST: database
-        PMA_PORT: 3306
+      PMA_HOST: database
+      PMA_PORT: 3306
     networks:
       - symfony
     depends_on:
