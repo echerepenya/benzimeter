@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Refuelling;
 use App\Repository\RefuellingRepository;
 use App\Form\RefuellingType;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +38,7 @@ class RefuellingController extends AbstractController
             'previous' => $offset - RefuellingRepository::PAGINATOR_PER_PAGE,
             'next' => min(count($paginator), $offset + RefuellingRepository::PAGINATOR_PER_PAGE),
             'add_record' => true,
+            'form' => null,
         ]);
     }
 
@@ -117,5 +119,21 @@ class RefuellingController extends AbstractController
         return $this->render('refuelling/success.html.twig', [
             'title' => 'Сохранено',
         ]);
+    }
+
+    #[Route('/me', name: 'my_name')]
+    public function getMyName()
+    {
+        $user = $this->getUser();
+        if($user instanceof User)
+        {
+            return $this->json([
+                $user->getName(),
+            ]);
+        }
+
+        return $this->json(
+            null, 401
+        );
     }
 }
