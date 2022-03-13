@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 services:
 ###> doctrine/doctrine-bundle ###
   database:
@@ -14,7 +14,7 @@ services:
       MYSQL_PASSWORD: symfony
     restart: always
     ports:
-      - 3306:3306
+      - 3300:3306
     volumes:
       - db-data:/var/lib/mysql
       #- ./docker/build/db:/docker-entrypoint-initdb.d
@@ -47,28 +47,28 @@ services:
     volumes:
       - ./:/var/www/project/:cached
     ports:
-      - 8100:80 # Ports that are exposed, you can connect to port 8080 to port 80 of the container.
+      - 8100:80 # Ports that are exposed, you can connect to port 8100 to port 80 of the container.
     networks:
       - symfony
     depends_on:
       - database
       - fpm
 
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - 8200:80
-    restart: always
-    environment:
-      PMA_HOST: database
-      PMA_PORT: 3306
-    networks:
-      - symfony
-    depends_on:
-      - database
-      - fpm
-      - nginx
+#  phpmyadmin:
+#    container_name: phpmyadmin
+#    image: phpmyadmin/phpmyadmin
+#    ports:
+#      - 8200:80
+#    restart: always
+#    environment:
+#      PMA_HOST: database
+#      PMA_PORT: 3300
+#    networks:
+#      - symfony
+#    depends_on:
+#      - database
+#      - fpm
+#      - nginx
 
 volumes:
 ###> doctrine/doctrine-bundle ###

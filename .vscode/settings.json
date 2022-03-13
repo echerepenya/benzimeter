@@ -1,0 +1,30 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "webs-api",
+            "database": "biooo",
+            "username": "root",
+            "password": "very_strong_password"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3300,
+            "askForPassword": true,
+            "driver": "MySQL",
+            "name": "benzimeter",
+            "database": "benzimeter",
+            "username": "symfony"
+        }
+    ]
+}
