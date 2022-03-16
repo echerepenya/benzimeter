@@ -19,12 +19,12 @@
             },
             "previewLimit": 50,
             "server": "localhost",
-            "port": 3300,
-            "askForPassword": true,
+            "port": 3306,
             "driver": "MySQL",
             "name": "benzimeter",
             "database": "benzimeter",
-            "username": "symfony"
+            "username": "symfony",
+            "password": "symfony"
         }
     ]
 }

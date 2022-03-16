@@ -14,7 +14,7 @@ services:
       MYSQL_PASSWORD: symfony
     restart: always
     ports:
-      - 3300:3306
+      - 3306:3306
     volumes:
       - db-data:/var/lib/mysql
       #- ./docker/build/db:/docker-entrypoint-initdb.d

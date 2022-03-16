@@ -1,4 +1,5 @@
 FROM php:8.0.3-fpm-buster
+ENV TZ="Europe/Kiev"
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     zlib1g-dev \
@@ -19,6 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     intl
 COPY build/php/opcache.ini /usr/local/etc/php/conf.d/
 COPY build/php/custom.ini /usr/local/etc/php/conf.d/
+RUN wget https://get.symfony.com/cli/installer -O - | bash && mv /root/.symfony/bin/symfony /usr/local/bin/symfony && symfony server:ca:install
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN composer self-update
 RUN wget --no-check-certificate https://phar.phpunit.de/phpunit-6.5.3.phar && \
