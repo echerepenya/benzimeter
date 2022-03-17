@@ -23,7 +23,13 @@
           <li class="nav-item">
             <a class="nav-link {% if (app.request.pathInfo == path('homepage')) %} active{% endif %}" aria-current="page" href="{{ path('homepage') }}">
               <span data-feather="home"></span>
-              Дневник
+              Общий список
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if (app.request.pathInfo == path('my_fuellings')) %} active{% endif %}" aria-current="page" href="{{ path('my_fuellings') }}">
+              <span data-feather="home"></span>
+              Моя история
             </a>
           </li>
           <li class="nav-item">

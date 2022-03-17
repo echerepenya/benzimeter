@@ -27,7 +27,23 @@ class RefuellingController extends AbstractController
     }
     
     #[Route('/', name: 'homepage')]
-    public function showRecords(Request $request): Response
+    public function showAllRecords(Request $request): Response
+    {
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $this->refuellingRepo->getRefuellingPaginator($offset);
+
+        return $this->render('refuelling/index.html.twig', [
+            'title' => 'Записи',
+            'records' => $paginator,
+            'previous' => $offset - RefuellingRepository::PAGINATOR_PER_PAGE,
+            'next' => min(count($paginator), $offset + RefuellingRepository::PAGINATOR_PER_PAGE),
+            'add_record' => false,
+            'form' => null,
+        ]);
+    }
+
+    #[Route('/refuellings/my', name: 'my_fuellings')]
+    public function showMyRecords(Request $request): Response
     {
         $offset = max(0, $request->query->getInt('offset', 0));
         $paginator = $this->refuellingRepo->getRefuellingPaginator($offset);
